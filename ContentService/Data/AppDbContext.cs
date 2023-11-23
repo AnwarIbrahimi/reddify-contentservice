@@ -10,5 +10,10 @@ namespace ContentService.Data
 
         }
         public DbSet<Content> Contents { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=mssqlstud.fhict.local;Database=dbi465821_content;User Id=dbi465821_content;Password=Voucugklir2;TrustServerCertificate=True");
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace ContentService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public ActionResult<IEnumerable<ContentReadDTO>> GetContents()
          {
             Console.WriteLine("--> Getting Contents....");
@@ -41,7 +41,7 @@ namespace ContentService.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpPost("post")]
         public ActionResult<ContentReadDTO> CreateContent(ContentCreateDTO contentCreateDto)
         {
             var contentModel = _mapper.Map<Content>(contentCreateDto);

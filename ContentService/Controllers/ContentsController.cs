@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ContentService.AsyncDataServices;
 using ContentService.Data;
 using ContentService.DTO;
 using ContentService.Models;
@@ -12,11 +13,13 @@ namespace ContentService.Controllers
     {
         private readonly IContentRepo _repository;
         private readonly IMapper _mapper;
+        private readonly IMessageBusClient _messageBusClient;
 
-        public ContentsController(IContentRepo repository, IMapper mapper)
+        public ContentsController(IContentRepo repository, IMapper mapper, IMessageBusClient messageBusClient)
         {
             _repository = repository;
             _mapper = mapper;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet("all")]
@@ -49,6 +52,18 @@ namespace ContentService.Controllers
             _repository.SaveChanges();
 
             var contentReadDto = _mapper.Map<ContentReadDTO>(contentModel);
+
+            try
+            {
+                var contentPublishedDto = _mapper.Map<ContentPublishedDTO>(contentReadDto);
+                contentPublishedDto.Event = "Content_Published";
+                _messageBusClient.PublishNewContent(contentPublishedDto);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"--> Could not send asynchronously: {ex.Message}");
+            }
 
             return CreatedAtRoute(nameof(GetContentById), new { Id = contentReadDto.Id }, contentReadDto);
         }

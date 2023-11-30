@@ -11,6 +11,7 @@ namespace ContentService.Profiles
             // Source -> Target
             CreateMap<Content, ContentReadDTO>();
             CreateMap<ContentCreateDTO, Content>();
+            CreateMap<ContentReadDTO, ContentPublishedDTO>();
         }
     }
 }

@@ -1,0 +1,12 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: content-service
+spec:
+  selector:
+    app: contentservice
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort

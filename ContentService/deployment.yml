@@ -1,0 +1,19 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contentservice
+  template:
+    metadata:
+      labels:
+        app: contentservice
+    spec:
+      containers:
+      - name: contentservice
+        image: anwarict/contentservice
+        ports:
+        - containerPort: 80

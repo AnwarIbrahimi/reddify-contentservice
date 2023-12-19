@@ -9,4 +9,9 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-  type: NodePort
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+  type: LoadBalancer
+
+

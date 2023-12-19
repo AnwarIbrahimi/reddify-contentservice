@@ -17,17 +17,17 @@ namespace ContentService.Data
             {
                 throw new ArgumentNullException(nameof(cont));
             }
-            _context.Contents.Add(cont);
+            _context.contents.Add(cont);
         }
 
         public IEnumerable<Content> GetAllContents()
         {
-            return _context.Contents.ToList();
+            return _context.contents.ToList();
         }
 
         public Content GetContentById(int id)
         {
-            return _context.Contents.FirstOrDefault(p => p.Id == id);
+            return _context.contents.FirstOrDefault(p => p.Id == id);
         }
 
         public bool SaveChanges()

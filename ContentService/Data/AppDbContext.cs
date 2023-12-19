@@ -9,11 +9,11 @@ namespace ContentService.Data
         {
 
         }
-        public DbSet<Content> Contents { get; set; }
+        public DbSet<Content> contents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Host=postgres-service-content;Database=mydatabase;Username=myuser;Password=mypassword;");
+            optionsBuilder.UseNpgsql("Host=postgres-service-content;Database=mydatabase;Username=myuser;Password=mypassword;");
         }
     }
 }

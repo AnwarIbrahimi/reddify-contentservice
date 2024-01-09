@@ -14,8 +14,8 @@ spec:
       port: 7117
       targetPort: 443
       name: https-port
-    - protocol: TCP
+    - name: postgres-service-content 
+      protocol: TCP
       port: 5432
       targetPort: 5432
-      name: postgres-service-content
   type: ClusterIP

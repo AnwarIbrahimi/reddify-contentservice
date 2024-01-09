@@ -24,7 +24,7 @@ spec:
               value: mydatabase
           ports:
             - containerPort: 5432
-          voluvolumeMounts:
+          volumeMounts:
           - mountPath: /var/lib/postgresql/data
             name: postgres-claim-content
       volumes:

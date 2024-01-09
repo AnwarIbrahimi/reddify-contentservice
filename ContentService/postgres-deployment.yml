@@ -35,8 +35,9 @@ metadata:
   name: postgres-content
 spec:
   selector:
-    app: contentservice
+    app: postgres-content 
   ports:
-      protocol: TCP
+    - protocol: TCP
       port: 5432
       targetPort: 5432
+

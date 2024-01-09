@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: contentservice
+      app: postgres-content
   template:
     metadata:
       labels:
-        app: contentservice
+        app: postgres-content
     spec:
       containers:
         - name: postgres-content

@@ -3,9 +3,10 @@ kind: PersistentVolume
 metadata:
   name: postgres-pv
 spec:
+  storageClassName: manual
   capacity:
-    storage: 10Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/path/on/host"
+    path: "/mnt/data"

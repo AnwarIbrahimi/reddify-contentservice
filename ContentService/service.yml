@@ -4,7 +4,7 @@ metadata:
   name: content-service
 spec:
   selector:
-    app: contentservice  # Adjusted to match the correct label
+    app: contentservice
   ports:
     - protocol: TCP
       port: 5117

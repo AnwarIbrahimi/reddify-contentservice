@@ -24,16 +24,7 @@ spec:
               value: mydatabase
           ports:
             - containerPort: 5432
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres-service-content
-spec:
-  selector:
-    app: postgres
-  ports:
-    - name: postgres
-      protocol: TCP
-      port: 5432
-      targetPort: 5432
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc

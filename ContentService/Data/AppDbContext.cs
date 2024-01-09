@@ -13,7 +13,7 @@ namespace ContentService.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=postgres-content;Database=mydatabase;Username=myuser;Password=mypassword;"); 
+            optionsBuilder.UseNpgsql("Host=postgres-service-content;Database=mydatabase;Username=myuser;Password=mypassword;"); 
         }
     }
 }

@@ -17,7 +17,10 @@ namespace ContentService.AsyncDataServices
             _configuration = configuration;
             var factory = new ConnectionFactory()
             {
-                Uri = new Uri(_configuration["RabbitMQ:Url"])
+                HostName = _configuration["RabbitMQ:Host"],
+                Port = int.Parse(_configuration["RabbitMQ:Port"]),
+                UserName = _configuration["RabbitMQ:UserName"],
+                Password = _configuration["RabbitMQ:Password"]
             };
             try
             {

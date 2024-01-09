@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: contentservice
-        image: anwarict/contentservice
+        image: anwarict/contentsservice
         ports:
         - containerPort: 80

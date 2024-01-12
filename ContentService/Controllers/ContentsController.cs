@@ -3,6 +3,7 @@ using ContentService.AsyncDataServices;
 using ContentService.Data;
 using ContentService.DTO;
 using ContentService.Models;
+using ContentService.RabbitMQ;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContentService.Controllers
@@ -11,6 +12,7 @@ namespace ContentService.Controllers
     [ApiController]
     public class ContentsController : ControllerBase
     {
+        private readonly IRabbitMQHelper _rabbitMQHelper;
         private readonly IContentRepo _repository;
         private readonly IMapper _mapper;
         private readonly IMessageBusClient _messageBusClient;
@@ -66,6 +68,13 @@ namespace ContentService.Controllers
             }
 
             return CreatedAtRoute(nameof(GetContentById), new { Id = contentReadDto.Id }, contentReadDto);
+        }
+
+        [HttpPost("postmq")]
+        public ActionResult PublishMessage([FromBody] string message)
+        {
+            _rabbitMQHelper.PublishMessage(message);
+            return Ok("Message published successfully");
         }
     }
 }

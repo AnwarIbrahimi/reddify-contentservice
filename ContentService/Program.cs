@@ -1,6 +1,7 @@
 using ContentService.AsyncDataServices;
 using ContentService.Data;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,18 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add RabbitMQ services
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var factory = new ConnectionFactory
+    {
+        Uri = new Uri(configuration["RabbitMQ:Url"]),
+    };
+
+    var connection = factory.CreateConnection();
+    return connection;
+});
 
 var app = builder.Build();
 

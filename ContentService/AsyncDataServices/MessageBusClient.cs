@@ -55,7 +55,7 @@ namespace ContentService.AsyncDataServices
             var body = Encoding.UTF8.GetBytes(message);
 
             _channel.BasicPublish(exchange: "trigger",
-                            routingKey: "",
+                            routingKey: "contents_queue",
                             basicProperties: null,
                             body: body);
             Console.WriteLine($"--> We have sent {message}");

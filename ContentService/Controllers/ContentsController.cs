@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ContentService.AsyncDataServices;
 using ContentService.Data;
 using ContentService.DTO;
 using ContentService.Models;
@@ -14,12 +15,14 @@ namespace ContentService.Controllers
         private readonly IConfiguration _configuration;
         private readonly IContentRepo _repository;
         private readonly IMapper _mapper;
+        private readonly IMessageBusClient _messageBusClient;
 
-        public ContentsController(IConfiguration configuration, IContentRepo repository, IMapper mapper)
+        public ContentsController(IConfiguration configuration, IContentRepo repository, IMapper mapper, IMessageBusClient messageBusClient)
         {
             _configuration = configuration;
             _repository = repository;
             _mapper = mapper;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet("all")]
@@ -53,33 +56,20 @@ namespace ContentService.Controllers
 
             var contentReadDto = _mapper.Map<ContentReadDTO>(contentModel);
 
-            var factory = new ConnectionFactory
+            try
             {
-                Uri = new Uri(_configuration["RabbitMQ:Url"])
-            };
+                var contentPublishedDto = _mapper.Map<ContentPublishedDTO>(contentReadDto);
+                contentPublishedDto.Event = "Content_Published";
+                _messageBusClient.PublishNewContent(contentPublishedDto);
 
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            }
+            catch (Exception ex)
             {
-                var rabbitMQService = new RabbitMQHelper(channel);
-                rabbitMQService.SendMessage($"New content created: {contentCreateDto.Name}");
 
-                // Process the message immediately in the database
-                ProcessMessageLocally(contentReadDto);
+                Console.WriteLine($"--> Could not send asynchronously: {ex.Message}");
             }
 
             return CreatedAtRoute(nameof(GetContentById), new { Id = contentReadDto.Id }, contentReadDto);
-        }
-
-        private void ProcessMessageLocally(ContentReadDTO contentReadDTO)
-        {
-            // Process the message (e.g., create a user in the database)
-            Console.WriteLine($" [x] Received 'New contents created: {contentReadDTO.Name}'");
-
-            // Save the user to the database
-            var pictureModel = _mapper.Map<Content>(contentReadDTO);
-            _repository.CreateContent(pictureModel);
-            _repository.SaveChanges();
         }
     }
 }

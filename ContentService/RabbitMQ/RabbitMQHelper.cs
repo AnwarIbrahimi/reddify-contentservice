@@ -13,12 +13,20 @@ public class RabbitMQHelper
 
     public void SendMessage(string message)
     {
-        // Send a message
-        var body = Encoding.UTF8.GetBytes(message);
+        try
+        {
+            // Send a message
+            var body = Encoding.UTF8.GetBytes(message);
 
-        _channel.BasicPublish(exchange: "", routingKey: "contents_queue", basicProperties: null, body: body);
+            _channel.BasicPublish(exchange: "", routingKey: "contents_queue", basicProperties: null, body: body);
 
-        Console.WriteLine($" [x] Sent '{message}'");
+            Console.WriteLine($" [x] Sent '{message}'");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending message: {ex.Message}");
+        }
+       
     }
 }
 

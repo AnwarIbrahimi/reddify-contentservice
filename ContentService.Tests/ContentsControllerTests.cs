@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using ContentService.AsyncDataServices;
 using ContentService.Controllers;
 using ContentService.Data;
 using ContentService.DTO;
@@ -22,8 +23,9 @@ namespace ContentService.Tests
             var mockRepo = new Mock<IContentRepo>();
             var mockMapper = new Mock<IMapper>();
             var mockConfig = new Mock<IConfiguration>();
+            var mockBus = new Mock<IMessageBusClient>();
 
-            var controller = new ContentsController(mockConfig.Object, mockRepo.Object, mockMapper.Object);
+            var controller = new ContentsController(mockConfig.Object, mockRepo.Object, mockMapper.Object, mockBus.Object);
 
             // Act
             var result = controller.GetContents();
@@ -39,8 +41,9 @@ namespace ContentService.Tests
             var mockRepo = new Mock<IContentRepo>();
             var mockMapper = new Mock<IMapper>();
             var mockConfig = new Mock<IConfiguration>();
+            var mockBus = new Mock<IMessageBusClient>();
 
-            var controller = new ContentsController(mockConfig.Object, mockRepo.Object, mockMapper.Object);
+            var controller = new ContentsController(mockConfig.Object, mockRepo.Object, mockMapper.Object, mockBus.Object);
 
             int validId = 1;
 
@@ -62,8 +65,9 @@ namespace ContentService.Tests
             var mockRepo = new Mock<IContentRepo>();
             var mockMapper = new Mock<IMapper>();
             var mockConfig = new Mock<IConfiguration>();
+            var mockBus = new Mock<IMessageBusClient>();
 
-            var controller = new ContentsController(mockConfig.Object, mockRepo.Object, mockMapper.Object);
+            var controller = new ContentsController(mockConfig.Object, mockRepo.Object, mockMapper.Object, mockBus.Object);
 
             int invalidId = 999;
 

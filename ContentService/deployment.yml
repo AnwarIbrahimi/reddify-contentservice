@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: contentservice
-        image: anwarict/contentsreddifyy
+        image: anwarict/contentsreddifyyy
         ports:
         - containerPort: 5117

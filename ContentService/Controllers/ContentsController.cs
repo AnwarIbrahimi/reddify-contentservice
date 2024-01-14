@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ContentService.AsyncDataServices;
 using ContentService.Data;
 using ContentService.DTO;
 using ContentService.Models;
@@ -15,14 +14,12 @@ namespace ContentService.Controllers
         private readonly IConfiguration _configuration;
         private readonly IContentRepo _repository;
         private readonly IMapper _mapper;
-        private readonly IMessageBusClient _messageBusClient;
 
-        public ContentsController(IConfiguration configuration, IContentRepo repository, IMapper mapper, IMessageBusClient messageBusClient)
+        public ContentsController(IConfiguration configuration, IContentRepo repository, IMapper mapper)
         {
             _configuration = configuration;
             _repository = repository;
             _mapper = mapper;
-            _messageBusClient = messageBusClient;
         }
 
         [HttpGet("all")]
@@ -72,18 +69,6 @@ namespace ContentService.Controllers
             }
 
             return CreatedAtRoute(nameof(GetContentById), new { Id = contentReadDto.Id }, contentReadDto);
-
-            //try
-            //{
-            //    var contentPublishedDto = _mapper.Map<ContentPublishedDTO>(contentReadDto);
-            //    contentPublishedDto.Event = "Content_Published";
-            //    _messageBusClient.PublishNewContent(contentPublishedDto);
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"--> Could not send asynchronously: {ex.Message}");
-            //}
         }
 
         private void ProcessMessageLocally(ContentReadDTO contentReadDTO)

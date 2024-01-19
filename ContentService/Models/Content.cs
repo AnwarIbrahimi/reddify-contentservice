@@ -13,5 +13,6 @@ namespace ContentService.Models
         public string Publisher { get; set; }
         [Required]
         public string Description { get; set; }
+        public string? Uid { get; set; }
     }
 }

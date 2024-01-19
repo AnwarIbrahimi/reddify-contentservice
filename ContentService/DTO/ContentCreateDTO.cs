@@ -10,5 +10,6 @@ namespace ContentService.DTO
         public string Publisher { get; set; }
         [Required]
         public string Description { get; set; }
+        public string? Uid { get; set; }
     }
 }

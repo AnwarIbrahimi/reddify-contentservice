@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ContentService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240121133208_InitalCreate")]
+    [Migration("20240121175215_InitalCreate")]
     partial class InitalCreate
     {
         /// <inheritdoc />
@@ -45,6 +45,7 @@ namespace ContentService.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Uid")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

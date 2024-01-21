@@ -20,7 +20,7 @@ namespace ContentService.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Publisher = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Uid = table.Column<string>(type: "text", nullable: true)
+                    Uid = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

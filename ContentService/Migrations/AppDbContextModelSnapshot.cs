@@ -42,6 +42,7 @@ namespace ContentService.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Uid")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

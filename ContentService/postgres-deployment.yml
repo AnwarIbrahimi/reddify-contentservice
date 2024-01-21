@@ -25,12 +25,12 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
-          - mountPath: /var/lib/postgresql/data
-            name: postgres-claim-content
+          - name: postgres-storage
+            mounthPath: /var/lib/postgresql/data
       volumes:
-      - name: postgres-claim-content
+      - name: postgres-storage
         persistentVolumeClaim:
-          claimName: postgres-claim-content
+          claimName: postgres-pvc
 ---
 apiVersion: v1
 kind: Service

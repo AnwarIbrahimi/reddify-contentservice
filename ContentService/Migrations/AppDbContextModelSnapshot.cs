@@ -41,6 +41,9 @@ namespace ContentService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Uid")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("contents");

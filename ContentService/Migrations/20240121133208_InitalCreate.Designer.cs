@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ContentService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240112104941_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240121133208_InitalCreate")]
+    partial class InitalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace ContentService.Migrations
 
                     b.Property<string>("Publisher")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Uid")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

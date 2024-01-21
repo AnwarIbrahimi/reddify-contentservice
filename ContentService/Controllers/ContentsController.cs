@@ -16,7 +16,6 @@ namespace ContentService.Controllers
         private readonly IContentRepo _repository;
         private readonly IMapper _mapper;
         private readonly IMessageBusClient _messageBusClient;
-        private readonly UserDeletionConsumer _userDeletionConsumer;
 
         public ContentsController(IConfiguration configuration, IContentRepo repository, IMapper mapper, IMessageBusClient messageBusClient)
         {
@@ -24,7 +23,6 @@ namespace ContentService.Controllers
             _repository = repository;
             _mapper = mapper;
             _messageBusClient = messageBusClient;
-            _userDeletionConsumer = new UserDeletionConsumer(configuration);
         }
 
         [HttpGet("all")]

@@ -8,5 +8,6 @@ namespace ContentService.Data
         IEnumerable<Content> GetAllContents();
         Content GetContentById(int id);
         void CreateContent(Content cont);
+        public void DeleteContentsByUserId(string Uid);
     }
 }

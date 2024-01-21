@@ -34,5 +34,15 @@ namespace ContentService.Data
         {
             return (_context.SaveChanges() >= 0);
         }
+        public void DeleteContentsByUserId(string Uid)
+        {
+            var contentsToDelete = _context.contents.Where(p => p.Uid == Uid).ToList();
+
+            foreach (var content in contentsToDelete)
+            {
+                _context.contents.Remove(content);
+            }
+            _context.SaveChanges();
+        }
     }
 }

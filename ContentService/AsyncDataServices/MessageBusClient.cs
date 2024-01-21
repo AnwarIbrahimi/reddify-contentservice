@@ -24,17 +24,26 @@ namespace ContentService.AsyncDataServices
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
 
+                // Declare the exchange
                 _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+
+                // Declare the queue
+                _channel.QueueDeclare(queue: "contents_queue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+                // Bind the queue to the exchange
+                _channel.QueueBind(queue: "contents_queue", exchange: "trigger", routingKey: "");
 
                 _connection.ConnectionShutdown += RabbitMQ_ConnectionShutDown;
 
                 Console.WriteLine("--> Connected to MessageBus");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"--> Could not connect to the Message Bus: {ex.Message}");
-            } 
+                throw;
+            }
         }
+
 
         public void PublishNewContent(ContentPublishedDTO contentPublishedDTO)
         {
